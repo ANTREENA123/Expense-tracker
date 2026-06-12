@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Dashboard | Tracker Pro</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6366f1">
+    <!-- iOS Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="TrackerPro">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2489/2489756.png">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+    
+    <!-- Sidebar / Top Nav Area -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-wallet"></i>
+            <span>ExpenseTracker Pro</span>
+        </div>
+        <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </header>
+
+    <main>
+        <section class="overview">
+            <div class="header-text">
+                <h1>Financial Overview</h1>
+                <p class="subtitle">Track your spending patterns & savings</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="cards">
+                <div class="card balance">
+                    <div class="card-icon"><i class="fas fa-scale-balanced"></i></div>
+                    <div class="card-info">
+                        <h3>Total Balance</h3>
+                        <p>₹<span id="balance">0</span></p>
+                    </div>
+                </div>
+
+                <div class="card today">
+                    <div class="card-icon"><i class="fas fa-calendar-day"></i></div>
+                    <div class="card-info">
+                        <h3>Today</h3>
+                        <p>₹<span id="daily">0</span></p>
+                    </div>
+                </div>
+
+                <div class="card monthly">
+                    <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <div class="card-info">
+                        <h3>This Month</h3>
+                        <p>₹<span id="monthly">0</span></p>
+                    </div>
+                </div>
+
+                <div class="card yearly">
+                    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="card-info">
+                        <h3>This Year</h3>
+                        <p>₹<span id="yearly">0</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="main-grid">
+            <!-- Left Column: Transactions -->
+            <div class="col-left">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>Recent Transactions</h2>
+                    </div>
+                    <div class="list-container">
+                        <ul id="list"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Add & Analytics -->
+            <div class="col-right">
+                <div class="section-card form-section">
+                    <h2>Add Transaction</h2>
+                    <div class="form-box">
+                        <div class="input-group">
+                            <i class="fas fa-tag"></i>
+                            <input id="name" placeholder="Name">
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-align-left"></i>
+                            <input id="desc" placeholder="Description">
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <i class="fas fa-indian-rupee-sign"></i>
+                                <input id="amount" type="number" placeholder="Amount">
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-calendar"></i>
+                                <input id="date" type="date">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-filter"></i>
+                            <select id="type">
+                                <option value="expense" selected>Expense</option>
+                                <option value="income">Income</option>
+                            </select>
+                        </div>
+                        <button id="add-btn">
+                            <i class="fas fa-plus"></i> Add Transaction
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section-card chart-section">
+                    <h2>Spending Distribution</h2>
+                    <div class="chart-container">
+                        <canvas id="expenseChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- Your main JS -->
+<script src="dashboard.js"></script>
+
+<!-- Firebase Auth Script -->
+<script type="module">
+import { auth } from "./firebase.js";
+import { signOut, onAuthStateChanged }
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+/* 🔐 Protect Dashboard */
+onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        window.location.href = "login.html"; // redirect to login
+    }
+});
+
+/* 🚪 Logout function */
+window.logout = function () {
+    signOut(auth).then(() => {
+        window.location.href = "login.html";
+    });
+};
+</script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+</body>
+</html>
