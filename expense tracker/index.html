@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker Pro | Smart Spending</title>
+    <link rel="stylesheet" href="home.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6366f1">
+    <!-- iOS Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="TrackerPro">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2489/2489756.png">
+</head>
+<body>
+    <nav>
+        <h2>ExpenseTracker Pro</h2>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="#features">Features</a>
+            <a href="login.html">Login</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="left">
+            <h1>Track Every Rupee Smartly 💰</h1>
+            <p class="subtitle">Track daily, monthly & yearly expenses</p>
+            <p>
+                Manage your daily, monthly and yearly expenses
+                with beautiful analytics and reports.
+            </p>
+            <button onclick="location.href='dashboard.html'">
+                Get Started
+            </button>
+        </div>
+
+        <div class="right">
+            <img src="https://cdn-icons-png.flaticon.com/512/2489/2489756.png">
+        </div>
+    </section>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+</body>
+</html>
